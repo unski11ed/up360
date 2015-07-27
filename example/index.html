@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<title>up-360 Examples index</title>
+		
+		<!-- Include bootstrap and jQuery for examples only -->
+		<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap-theme.min.css" />
+		<script type="text/javascript" src="/jquery/dist/jquery.min.js"></script>
+		<script type="text/javascript" src="/bootstrap/dist/js/bootstrap.min.js"></script>
+	</head>
+	
+	<body>
+		<aside>
+			<nav class="nav">
+				<ul class="ajax-menu">
+					<li>
+						<a href="#example-default">Default</a>
+					</li>
+				</ul>
+			</nav>
+		</aside>
+		
+		<!-- Page content -->
+		<main>
+		</main>
+		
+		<!-- Subpage loading -->
+		<script type="text/javascript">
+			$(window).on('hashchange', function(){
+				var viewPath = window.location.hash ? window.location.hash.replace('#', '') : 'example-default';
+		
+				$('main').load('/' + viewPath + '/index.html', function(){
+					$(window).trigger('pageloaded');
+				});	
+			}).trigger('hashchange');
+		</script>
+	</body>
+</html>

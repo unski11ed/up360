@@ -1,0 +1,12 @@
+/* line 2, src\less\app.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/src\/less\/app\.less}line{font-family:\000032}}
+.up360-main .up360-screen {
+  position: relative;
+  overflow: hidden;
+}
+/* line 7, src\less\app.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/src\/less\/app\.less}line{font-family:\000037}}
+.up360-main .up360-content {
+  position: absolute;
+  transform-origin: center;
+}

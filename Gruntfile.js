@@ -26,24 +26,7 @@ module.exports = function(grunt) {
           dumpLineNumbers: 'all',
         },
         files: {
-          'build/dev/css/style.css': 'src/less/jus-main.less',
-          'build/dev/css/bootstrap.css': 'src/less/bootstrap-custom/custom-bootstrap.less',
-          'build/dev/css/bootstrap-theme.css': 'src/less/bootstrap-custom/custom-theme.less',
-          /*'build/dev/css/awesome-bootstrap-checkbox.css': 'bower_components/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.less',*/
-        }
-      },
-      dist: {
-        options: {
-          paths: [
-            "src/less",
-            "vendor/bootstrap/less"
-          ]
-        },
-        files: {//TODO: change
-          '.tmp/css/style.css': 'src/less/jus-main.less',
-          '.tmp/css/bootstrap.css': 'vendor/bootstrap-custom/less/bootstrap.less',
-          '.tmp/css/bootstrap-theme.css': 'vendor/bootstrap-custom/less/theme.less',
-          /*'.tmp/css/awesome-bootstrap-checkbox.css': 'bower_components/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.less',*/
+          'dist/up-360.css': 'src/less/main.less',
         }
       }
     },
@@ -51,171 +34,64 @@ module.exports = function(grunt) {
     bowercopy: {
       dev: {
         options: {
-          destPrefix: 'build/dev'
+          destPrefix: '.tmp/js/libs'
         },
         files: {
-          //js
-          'js/jquery.js': 'jquery/dist/jquery.js',
-          'js/d3.js': 'd3/d3.js',
-          'js/jquery.dataTables.js': 'datatables/media/js/jquery.dataTables.js',
-          'js/nv.d3.js': 'nvd3/build/nv.d3.js',
-          'js/bootstrap.js': 'bootstrap/dist/js/bootstrap.js',
-          'js/moment-with-locales.js': 'moment/min/moment-with-locales.js',
-          'js/fullcalendar.js': 'fullcalendar/dist/fullcalendar.js',
-          'js/summernote.js': 'summernote/dist/summernote.js',
-          'js/bootstrap-editable.js': 'x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js',
-          'js/select2.js': 'select2/dist/js/select2.full.js',
-          'js/jquery.bootstrap-touchspin.js': 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js',
-          'js/metisMenu.js': 'metisMenu/dist/metisMenu.js',
-
-          //css
-          'css/font-awesome.css': 'components-font-awesome/css/font-awesome.css',
-          'css/jquery.dataTables.css': 'datatables/media/css/jquery.datatables.css',
-          'css/fullcalendar.css': 'fullcalendar/dist/fullcalendar.css',
-          'css/summernote.css': 'summernote/dist/summernote.css',
-          'css/bootstrap-editable.css': 'x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css',
-          'css/select2.css': 'select2/dist/css/select2.css',
-          'css/jquery.bootstrap-touchspin.css': 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css',
-          'css/awesome-bootstrap-checkbox.css': 'awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css',
-          'css/metisMenu.css': 'metisMenu/dist/metisMenu.css',
-
-          //images
-          'img/datatables': 'datatables/media/images',
-          'img/editable': 'x-editable/dist/bootstrap3-editable/img',
-
-          //fonts
-          'fonts/font-awesome': 'components-font-awesome/fonts',
-          'fonts/bootstrap': 'bootstrap/dist/fonts'
-        }
-
-      },
-
-      dist: {
-        files: {
-          //js
-          '.tmp/js/jquery.js': 'jquery/dist/jquery.js',
-          '.tmp/js/d3.js': 'd3/d3.js',
-          '.tmp/js/jquery.dataTables.js': 'datatables/media/js/jquery.dataTables.js',
-          '.tmp/js/nv.d3.js': 'nvd3/build/nv.d3.js',
-          '.tmp/js/bootstrap.js': 'bootstrap/dist/js/bootstrap.js',
-          '.tmp/js/moment-with-locales.js': 'moment/min/moment-with-locales.js',
-          '.tmp/js/fullcalendar.js': 'fullcalendar/dist/fullcalendar.js',
-          '.tmp/js/summernote.js': 'summernote/dist/summernote.js',
-          '.tmp/js/bootstrap-editable.js': 'x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js',
-          '.tmp/js/select2.js': 'select2/dist/js/select2.full.js',
-          '.tmp/js/jquery.bootstrap-touchspin.js': 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js',
-          //css
-          '.tmp/css/font-awesome.css': 'components-font-awesome/css/font-awesome.css',
-          '.tmp/css/jquery.dataTables.css': 'datatables/media/css/jquery.datatables.css',
-          '.tmp/css/fullcalendar.css': 'fullcalendar/dist/fullcalendar.css',
-          '.tmp/css/summernote.css': 'summernote/dist/summernote.css',
-          '.tmp/css/bootstrap-editable.css': 'x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css',
-          '.tmp/css/select2.js': 'select2/dist/css/select2.css',
-          '.tmp/css/jquery.bootstrap-touchspin.css': 'bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css',
-          '.tmp/css/awesome-bootstrap-checkbox.css': 'awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css',
-
-          //images
-          'build/dist/img/datatables': 'datatables/media/images',
-          'build/dist/img/editable': 'x-editable/dist/bootstrap3-editable/img',
-
-          //fonts
-          'build/dist/fonts/font-awesome': 'components-font-awesome/fonts',
-          'build/dist/fonts/bootstrap': 'bootstrap/dist/fonts'
+          'hammerjs.js': 'hammerjs/hammer.js',
+          'imagesloaded.js': 'imagesloaded/imagesloaded.js',
+          'screenfull.js': 'screenfull/dist/screenfull.js',
         }
       }
     },
-    replace: createRewriteConfig([
-      //dev rewrite
-      {id: 'bootstrap', file: 'build/dev/css/bootstrap.css'},
-      {id: 'datatables', file: 'build/dev/css/jquery.dataTables.css'},
-      {id: 'font-awesome', file: 'build/dev/css/font-awesome.css'},
-      {id: 'editable', file: 'build/dev/css/bootstrap-editable.css'},
-      //dist rewrite
-      {id: 'bootstrap', file: '.tmp/css/bootstrap.css'},
-      {id: 'datatables', file: '.tmp/css/jquery.dataTables.css'},
-      {id: 'font-awesome', file: '.tmp/css/font-awesome.css'},
-      {id: 'editable', file: '.tmp/css/bootstrap-editable.css'},
-    ]),
-
-    copy: {
-      dev: {
-        files: [
-          {cwd: 'src/img', src: ['**/*'], dest: 'build/dev/img/', flatten: true, expand: true},
-          {cwd: 'src/js', src: ['**/*.js'], dest: 'build/dev/js/', flatten: true, expand: true},
-          {cwd: 'src', src: ['*.html'], dest: 'build/dev/', flatten: true, expand: true},
-        ]
-      },
-      dist: {
-        files: [
-          {cwd: 'src/img', src: ['**/*'], dest: 'build/dist/img/', flatten: true, expand: true},
-          {cwd: 'src/js', src: ['**/*.js'], dest: '.tmp/js/', flatten: true, expand: true},
-          {cwd: 'src', src: ['*.html'], dest: 'build/dist/', flatten: true, expand: true},
-        ]
-      }
-    },
-
-    env : {
-      dev: {
-        NODE_ENV : 'DEVELOPMENT'
-      },
-      dist : {
-        NODE_ENV : 'PRODUCTION'
-      }
-    },
-
-    preprocess: {
-      dev: {
-        files: [
-          {
-            expand: true,
-            cwd: 'src',
-            src: [
-              '*.html'
-            ],
-            dest: 'build/dev/',
-            
-          },
-        ],
-      },
-      dist: {
-        files: [
-          {
-            expand: true,
-            cwd: 'src',
-            src: [
-              '*.html'
-            ],
-            dest: 'build/dist/',
-          },
-        ],
-      }
-    },
-
+    
     uglify: {
+      dev: {
+        'files': {
+          'dist/up-360.js': ['.tmp/js/libs/*.js', 'src/js/*.js']
+        },
+        'options': {
+          mangle: false,
+          compress: false,
+          beautify: true,
+        }
+      },
       dist: {
         files: {
-          'build/dist/js/site.min.js': ['.tmp/js/*.js'],
-          'build/dist/css/site.min.css': ['.tmp/css/*.css'],
+          'dist/up-360.min.js': ['dist/up-360.js'],
+          'dist/up-360.min.css': ['dist/up-360.css'],
+        },
+        options: {
+          mangle: true,
+          compress: true
         }
       }
     },
 
     watch: {
       less: {
-        files: ['src/less/**/*.less', 'vendor/bootstrap-custom/less/**/*.less'],
-        tasks: ['less:dev', 'replace'],
+        files: ['src/less/**/*.less'],
+        tasks: ['less:dev'],
         options: {
           spawn: false,
           livereload: true,
         },
       },
 
-      statics: {
-        files: ['src/img/**/*', 'src/js/**/*.js', 'src/*.html', 'src/html-include/**/*.html'],
-        tasks: ['default'],
+      js: {
+        files: ['src/js/**/*.js'],
+        tasks: ['uglify:dev'],
         options: {
           spawn: false,
           livereload: true,
+        }
+      },
+      
+      examples: {
+        files: ['example/**/*.js', 'example/**/*.html', 'example/**/*.css'],
+        tasks: [],
+        options: {
+          spawn: false,
+          livereload: true
         }
       }
     },
@@ -224,7 +100,7 @@ module.exports = function(grunt) {
       server: {
         options: {
           port: 9000,
-          base: 'build/dev',
+          base: ['example', 'dist', 'bower_components'],
           livereload: true,
           open: true,
           hostname: 'localhost'
@@ -233,44 +109,24 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      dev: ['build/dev'],
       tmp: ['.tmp']
     },
-    
-    'ftp-deploy': {
-      dev: {
-        auth: {
-          host: 'praca.civ.pl',
-          port: 21,
-          authKey: 'test-dev'
-        },
-        src: 'build/dev',
-        dest: '/',
-        exclusions: ['build/dev/**/Thumbs.db']
-      }
-    }
   });
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-bowercopy');
-  grunt.loadNpmTasks('grunt-text-replace');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-preprocess');
-  grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-ftp-deploy');
 
-  // Default development task.
-  grunt.registerTask('default', ['clean:dev', 'env:dev', 'less:dev', 'bowercopy:dev', 'copy:dev', 'preprocess:dev', 'replace']);
 
-  grunt.registerTask('dev', ['default', 'connect:server', 'watch']);
+  grunt.registerTask('dev', ['less:dev', 'bowercopy:dev', 'uglify:dev'])
   
-  grunt.registerTask('deploy-dev', ['default', 'ftp-deploy:dev']);
-  // Production task. (needs rework)
-  //grunt.registerTask('dist', ['env:dist', 'less:dist', 'bowercopy:dist', 'copy:dist', 'replace', 'preprocess:dist', 'uglify:dist', 'clean:tmp']);
-
+  grunt.registerTask('dist', ['dev', 'uglify:dist', 'clean:tmp']);
+  
+  
+  // Default development task.
+  grunt.registerTask('default', ['dev', 'connect:server', 'watch']);
 };
