@@ -1671,6 +1671,52 @@ up360.Helpers.isMobile = {
 
 var up360 = up360 || {};
 
+up360.Settings = up360.Settings || {};
+
+up360.Settigns.default = {
+    maxZoom: 2,
+    minZoom: 1,
+    minFrame: 1,
+    maxFrame: 30,
+    playSpeed: 20,
+    defaultPlayDirection: 1,
+    rotationDivider: 20,
+    rotationDirection: 1,
+    autoload: true,
+    autoinit: true,
+    forceReload: false,
+    previewWindow: {
+        baseWidth: 200,
+        moveAnimationDuration: 200
+    },
+    loadSettings: {
+        type: "default"
+    },
+    DOMSettings: {
+        buildUI: true,
+        buildLoadingScreen: true,
+        buildPreviewWindow: true
+    },
+    scrollZoomEnabled: true,
+    scrollZoomStep: .3,
+    baseLayoutsUrl: "/css/templates/",
+    layout: "default",
+    gesturesType: "auto",
+    onLoadStarted: new up360.Helpers.Event(),
+    onLoadComplete: new up360.Helpers.Event(),
+    onInitComplete: new up360.Helpers.Event(),
+    onContentMoved: new up360.Helpers.Event(),
+    onRotateComplete: new up360.Helpers.Event(),
+    onZoomChanged: new up360.Helpers.Event(),
+    onFrameChanged: new up360.Helpers.Event(),
+    onLowResFrameLoaded: new up360.Helpers.Event(),
+    onDrawFrame: new up360.Helpers.Event(),
+    onBuildComplete: new up360.Helpers.Event(),
+    onDisposed: new up360.Helpers.Event()
+};
+
+var up360 = up360 || {};
+
 up360.Rendering = up360.Rendering || {};
 
 up360.Rendering.Engine = function(parentElement, settings) {
@@ -1993,6 +2039,103 @@ up360.Rendering.Engine = function(parentElement, settings) {
 
 var up360 = up360 || {};
 
+up360.Helpers = up360.Helpers || {};
+
+up360.Helpers.Rectangle = function(sx, sy, width, height) {
+    this.intersects = function(rect) {
+        return this.sx <= rect.sx + rect.width && this.sx + this.width >= rect.sx && this.sy <= rect.sy + rect.height && this.sy + this.height >= rect.sy;
+    };
+    this.set = function(sx, sy, width, height) {
+        this.sx = sx;
+        this.sy = sy;
+        this.height = height;
+        this.width = width;
+    };
+    this.set(sx, sy, width, height);
+};
+
+up360.Helpers.ScreenRectangle = function(screenElement) {
+    this.left = 0;
+    this.top = 0;
+    this.bottom = 0;
+    this.right = 0;
+    this.height = 0;
+    this.width = 0;
+    this.update = function() {
+        var screenRectangle = screenElement.getBoundingClientRect();
+        this.left = screenRectangle.left;
+        this.top = screenRectangle.top;
+        this.right = screenRectangle.right;
+        this.bottom = screenRectangle.bottom;
+        this.width = screenRectangle.width;
+        this.height = screenRectangle.height;
+    };
+    this.update();
+};
+
+up360.Helpers.Event = function(firstEventHandler) {
+    var eventHandlers;
+    this.Add = function(eventHandler) {
+        eventHandlers.push(eventHandler);
+    };
+    var currentArgs;
+    this.Trigger = function() {
+        currentArgs = Array.prototype.slice.call(arguments);
+        for (var i = eventHandlers.length - 1; i >= 0; i--) eventHandlers[i].apply(this, currentArgs);
+    };
+    this.ChangeParameter = function(index, value) {
+        currentArgs[index] = value;
+    };
+    this.Clear = function() {
+        eventHandlers = [];
+    };
+    this.Clear();
+    if (firstEventHandler !== undefined) {
+        this.Add(firstEventHandler);
+    }
+};
+
+up360.Helpers.Functions = {
+    extend: function(target, source) {
+        var extended = {};
+        var merge = function(obj) {
+            for (var prop in obj) {
+                if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+                    if (Object.prototype.toString.call(obj[prop]) === "[object Object]") {
+                        extended[prop] = up360.Helpers.Functions.extend(extended[prop], obj[prop]);
+                    } else {
+                        extended[prop] = obj[prop];
+                    }
+                }
+            }
+        };
+        merge(arguments[0]);
+        for (var i = 1; i < arguments.length; i++) {
+            var obj = arguments[i];
+            merge(obj);
+        }
+        return extended;
+    },
+    getJson: function(url, callback) {
+        var request = new XMLHttpRequest();
+        request.open("GET", url, true);
+        request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+                var data = JSON.parse(request.responseText);
+                callback.call(this, 1, data);
+            } else {
+                callback.call(this, 0);
+            }
+        };
+        request.onerror = function() {
+            callback.call(this, -1);
+        };
+        request.send();
+    }
+};
+
+var up360 = up360 || {};
+
 up360.Rendering = up360.Rendering || {};
 
 up360.Rendering.ImageRepository = function(settings, currentLevelObject, forceReload) {
@@ -2039,42 +2182,6 @@ var up360 = up360 || {};
 up360.Imports = up360.Imports || {};
 
 up360.Imports.imagesLoaded = imagesLoaded;
-
-var up360 = up360 || {};
-
-up360.Helpers = up360.Helpers || {};
-
-up360.Helpers.Recatngle = function(sx, sy, width, height) {
-    this.intersects = function(rect) {
-        return this.sx <= rect.sx + rect.width && this.sx + this.width >= rect.sx && this.sy <= rect.sy + rect.height && this.sy + this.height >= rect.sy;
-    };
-    this.set = function(sx, sy, width, height) {
-        this.sx = sx;
-        this.sy = sy;
-        this.height = height;
-        this.width = width;
-    };
-    this.set(sx, sy, width, height);
-};
-
-up360.Helpers.ScreenRectangle = function(screenElement) {
-    this.left = 0;
-    this.top = 0;
-    this.bottom = 0;
-    this.right = 0;
-    this.height = 0;
-    this.width = 0;
-    this.update = function() {
-        var screenRectangle = screenElement.getBoundingClientRect();
-        this.left = screenRectangle.left;
-        this.top = screenRectangle.top;
-        this.right = screenRectangle.right;
-        this.bottom = screenRectangle.bottom;
-        this.width = screenRectangle.width;
-        this.height = screenRectangle.height;
-    };
-    this.update();
-};
 
 var up360 = up360 || {};
 

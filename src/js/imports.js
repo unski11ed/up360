@@ -4,3 +4,5 @@ up360.Imports = up360.Imports || {};
 
 //assign deasandero imagesloaded
 up360.Imports.imagesLoaded = imagesLoaded;
+
+up360.Imports.screenfull = screenfull;
