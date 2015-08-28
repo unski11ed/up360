@@ -2,13 +2,13 @@
 var up360 = up360 || {};
 up360.UI = up360.UI || {};
 
-function PreviewWindow(rootElement, animation, rotator, settings) {
+function PreviewWindow(rootElement, animation, engine, settings) {
     var previewBox,
-        $previewWindow,
+        previewWindow,
+        
         initialized = false,
         height = 0,
         width = settings.baseWidth,
-        $screen,
         isHidden = false;
 
     function getParentRelativeRect(element){
@@ -31,37 +31,36 @@ function PreviewWindow(rootElement, animation, rotator, settings) {
 
             animation.Stop();
             //TODO: BUILD DOM FIRST AND START HERE!!!!!!!!!
-            var screenPosition = $screen.offset();
+            var screenPosition = rootElement.getBoundingClientRect();
 
             var mouseX = e.clientX - screenPosition.left,
                 mouseY = e.clientY - screenPosition.top;
 
-            var destLeft = mouseX - $previewWindow.width() / 2,
-                destTop = mouseY - $previewWindow.height() / 2;
+            var destLeft = mouseX - previewWindow.clientWidth / 2,
+                destTop = mouseY - previewWindow.clientHeight / 2;
 
             var pos = correctPositions(destLeft, destTop);
 
             destLeft = pos.x;
             destTop = pos.y;
 
-            var contentPosition = _rotator.GetContentPosition();
+            var contentPosition = engine.GetContentPosition();
 
-            $previewWindow.velocity({
+            up360.Imports.velocity(previewWindow, {
                 left: destLeft + 'px',
                 top: destTop + 'px',
             }, {
                 duration: settings.moveAnimationDuration,
                 easing: 'swing',
-
             });
 
             //HAXXX - needs to be changed to a step function
-            var prevBoxWidth = $previewBox.width(),
-                prevBoxHeight = $previewBox.height();
+            var prevBoxWidth = previewBox.clientWidth,
+                prevBoxHeight = previewBox.clientHeight;
 
             var interval = setInterval(function () {
-                var pos = $previewWindow.position();
-                _rotator.Move({
+                var pos = previewWindow.getBoundingClientRect();
+                engine.Move({
                     Left: -pos.left / prevBoxWidth * contentPosition.Width,
                     Top: -pos.top / prevBoxHeight * contentPosition.Height
                 });
@@ -78,42 +77,40 @@ function PreviewWindow(rootElement, animation, rotator, settings) {
         var isMouseDown = false;
 
         var lastMouseX, lastMouseY;
-        $previewWindow.mousedown(function (e) {
+        previewWindow.addEventHandler('mousedown', function (e) {
             e.stopImmediatePropagation();
             animation.Stop();
             isMouseDown = true;
-        }).mouseup(function (e) {
+        })
+        previewWindow.addEventHandler('mouseup', function (e) {
             e.stopImmediatePropagation();
             isMouseDown = false;
         });
 
-        $previewBox.mouseup(function () {
+        previewBox.addEventHandler('mouseup mouseleave', function(){
             isMouseDown = false;
-        }).mouseleave(function () {
-            isMouseDown = false;
-        }).mousemove(function (e) {
+        });
+        previewBox.addEventHandler('mousemove', function (e) {
             if (isMouseDown) {
                 if (!lastMouseX && !lastMouseY) {
                     lastMouseX = e.clientX;
                     lastMouseY = e.clientY;
                 }
-                var currentPosition = $previewWindow.position();
+                var currentPosition = previewWindow.getBoundingClientRect();
 
                 var newX = currentPosition.left + e.clientX - lastMouseX,
                     newY = currentPosition.top + e.clientY - lastMouseY;
 
                 var corrected = correctPositions(newX, newY);
 
-                $previewWindow.css({
-                    left: corrected.x,
-                    top: corrected.y
-                });
+                previewWindow.style.left = corrected.x + 'px';
+                previewWindow.style.top = corrected.y + 'px';
 
-                var contentPosition = _rotator.GetContentPosition();
+                var contentPosition = engine.GetContentPosition();
 
-                _rotator.Move({
-                    Left: -corrected.x / $previewBox.width() * contentPosition.Width,
-                    Top: -corrected.y / $previewBox.height() * contentPosition.Height
+                engine.Move({
+                    Left: -corrected.x / previewBox.clientWidth * contentPosition.Width,
+                    Top: -corrected.y / previewBox.clientHeight * contentPosition.Height
                 });
 
                 lastMouseX = e.clientX;
@@ -128,31 +125,36 @@ function PreviewWindow(rootElement, animation, rotator, settings) {
 
     //------------------------------Private functions--------------------------------
     function buildDOM() {
-        $previewBox = $("<div class='zoom360'><img/></div>");
-        $previewWindow = $("<div class='zoomcube'></div>");
+        previewBox = document.createElement('div');
+        previewBox.innerHtml = '<img />';
+        previewBox.classList.toggle('zoom360');
+        
+        previewWindow = document.createElement("div");
+        previewWindow.classList.toggle('zoomcube');
 
-        $rootElement.find('.main360').append($previewBox);
-        $previewBox.append($previewWindow);
-
-        var contentPosition = _rotator.GetContentPosition();
+        rootElement.appendChild(previewBox);
+        previewBox.appendChild(previewWindow);
+        
+        var contentPosition = engine.GetContentPosition();
         var contentRatio = contentPosition.Height / contentPosition.Width;
 
         height = width * contentRatio;
-        $previewBox.width(width)
-                   .height(height);
+                
+        previewBox.style.width = width + 'px';
+        previewBox.style.height = height + 'px';
     }
 
     function resetDOM() {
         if (initialized)
-            $previewBox.remove();
+            rootElement.removeChild(previewBox);
     }
 
     function correctPositions(x, y) {
         x = x < 0 ? 0 : x;
-        x = x + $previewWindow.width() > $previewBox.width() ? $previewBox.width() - $previewWindow.width() : x;
+        x = x + previewWindow.clientWidth > previewWindow.clientWidth ? previewBox.clientWidth - previewWindow.clientWidth : x;
 
         y = y < 0 ? 0 : y;
-        y = y + $previewWindow.height() > $previewBox.height() ? $previewBox.height() - $previewWindow.height() : y;
+        y = y + previewWindow.clientHeight() > previewBox.clientHeight() ? previewBox.clientHeight - previewWindow.clientHeight() : y;
 
         return {
             x: x,
@@ -161,39 +163,33 @@ function PreviewWindow(rootElement, animation, rotator, settings) {
     }
 
     function setUpPosition() {
-        var contentPosition = _rotator.GetContentPosition();
+        var contentPosition = engine.GetContentPosition();
         var pos = correctPositions(-(contentPosition.Left / contentPosition.Width * width),
                                    -(contentPosition.Top / contentPosition.Height * height));
-        $previewWindow.css({
-            left: pos.x,
-            top: pos.y
-        });
+        
+        previewWindow.style.left = pos.x + 'px';
+        previewWindow.style.top = pos.y + 'px';
     }
 
     function setUpSize() {
-        var contentPosition = _rotator.GetContentPosition();
+        var contentPosition = engine.GetContentPosition();
 
-        var screenSize = new TrueElementSize($screen);
+        var screenSize = rootElement.getBoundingClientRect();
 
-        $previewWindow.width(screenSize.Width / contentPosition.Width * $previewBox.width())
-                      .height(screenSize.Height / contentPosition.Height * $previewBox.height());
-
-        if ($previewWindow.width() >= $previewBox.width() ||
-            $previewWindow.height() >= $previewBox.height()) {
-            $previewWindow.height($previewBox.height())
-                          .width($previewBox.width())
-                          .css({
-                              left: 0,
-                              top: 0
-                          });
-        }
-
+        previewWindow.style.width = screenSize.width / contentPosition.Width * previewBox.clientWidth + 'px';
+        previewWindow.style.height = screenSize.height / contentPosition.Height * previewBox.clientHeight + 'px';
+        
+        if(previewWindow.clientWidth >= previewBox.clientWidth ||
+            previewWindow.clientHeight >= previewBox.clientHeight){
+                previewWindow.style.width = previewBox.clientWidth + 'px';
+                previewWindow.style.height = previewBox.clientHeight + 'px';
+                previewWindow.style.left = 0;
+                previewWindow.style.top = 0;
+            }
     }
 
     //----------------------------Public functions---------------------------
     this.Init = function () {
-        $screen = $rootElement.find('.js-rotator-screen');
-
         buildDOM();
 
         setUpPosition();
@@ -225,7 +221,7 @@ function PreviewWindow(rootElement, animation, rotator, settings) {
         if (!initialized)
             return;
 
-        $previewBox.find('img').attr('src', url);
+        previewBox.querySelector('img').src(url);
     }
 
     this.Hide = function () {
@@ -233,12 +229,12 @@ function PreviewWindow(rootElement, animation, rotator, settings) {
             return;
 
         if (!isHidden) {
-            $previewBox.velocity({
+            up360.Imports.velocity(previewBox, {
                 opacity: 0
             }, {
-                duration: 200,
-                complete: function () {
-                    $previewBox.hide();
+                durtion: 200,
+                complete: function(){
+                    previewBox.classList.add('hidden');
                 }
             });
             isHidden = true;
@@ -253,13 +249,14 @@ function PreviewWindow(rootElement, animation, rotator, settings) {
         this.UpdatePosition();
 
         if (isHidden) {
-            $previewBox.show();
-
-            $previewBox.velocity({
+            up360.Imports.velocity(previewBox, {
                 opacity: 1
             }, {
-                duration: 200,
-            })
+                duration: 200
+            });
+           
+            previewBox.classList.remove('hidden');
+            
             isHidden = false;
         }
     }

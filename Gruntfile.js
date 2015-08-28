@@ -37,9 +37,10 @@ module.exports = function(grunt) {
           destPrefix: '.tmp/js/libs'
         },
         files: {
-          'hammerjs.js': 'hammerjs/hammer.js',
-          'imagesloaded.js': 'imagesloaded/imagesloaded.js',
-          'screenfull.js': 'screenfull/dist/screenfull.js',
+          'hammerjs.js': 'node_modules/hammerjs/hammer.js',
+          'imagesloaded.js': 'node_modules/imagesloaded/imagesloaded.js',
+          'screenfull.js': 'node_modules/screenfull/dist/screenfull.js',
+          'velocity.js': 'node_modules/velocity-animate/velocity.js'
         }
       }
     },
