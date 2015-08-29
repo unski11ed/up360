@@ -2,7 +2,7 @@
 var up360 = up360 || {};
 up360.UI = up360.UI || {};
 
-function PreviewWindow(rootElement, animation, engine, settings) {
+up360.UI.PreviewWindow = function(rootElement, animation, engine, settings) {
     var previewBox,
         previewWindow,
         

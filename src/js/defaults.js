@@ -11,7 +11,7 @@ up360.Settigns.default = {
 	maxFrame: 30,
 	
 	playSpeed: 20,
-	defaultPlayDirection: 1,
+	playDirection: 1,
 	
 	rotationDivider: 20,
 	rotationDirection: 1,

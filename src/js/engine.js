@@ -17,8 +17,7 @@ up360.Rendering.Engine = function(parentElement, settings){
 		imageRepository, startFramesLoader, zoomValue, minZoomValue, _scale, posX = 0, posY = 0,
 		mousePosX = 0, mousePosY = 0, isMouseOnScreen = false, screenRectangle,
 		contentWidth, contentHeight,
-		//Pre-fullscreen $screen style
-		defaultScreenStyle = null, defaultMinimumZoom = 0, InterfaceObject, _this = this, moveRedrawTimeout;
+		InterfaceObject, _this = this, moveRedrawTimeout;
 
 	this.ZoomNormalized = 0;
 

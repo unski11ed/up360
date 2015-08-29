@@ -1,11 +1,51 @@
 .up360-main{
+	position: relative;
+	
 	.up360-screen{
 		position: relative;
 		overflow: hidden;
+		
+		*{
+		    margin: 0;
+		    padding: 0;
+		    border: none;
+		    font-size: 100%;
+		    font: inherit;
+		    vertical-align: baseline;
+		}
+		
+		> *{
+		    width: 100%;
+		    height: 100%;
+		    position: absolute;
+		    left: 0;
+		    top: 0;
+		}
+		
+		img{
+		    position: absolute;
+		}
+		
+		>.low-res-content{
+		    z-index: 1;
+		}
+		
+		>.high-res-content{
+		    z-index: 2;
+		}
 	}
 	
 	.up360-content{
 		position: absolute;
 		transform-origin: center;
+	}
+	
+	.up360-touch{
+		width:100%; 
+	    height:100%;
+	    position:absolute;
+	    z-index: 3; 
+	    top:0; 
+	    left: 0
 	}
 }

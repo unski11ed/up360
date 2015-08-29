@@ -8,3 +8,5 @@ up360.Imports.imagesLoaded = imagesLoaded;
 up360.Imports.screenfull = screenfull;
 
 up360.Imports.velocity = Velocity;
+
+up360.Imports.Hammer = Hammer;
