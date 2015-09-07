@@ -31,17 +31,16 @@ module.exports = function(grunt) {
       }
     },
 
-    bowercopy: {
+    copy: {
       dev: {
-        options: {
-          destPrefix: '.tmp/js/libs'
-        },
-        files: {
-          'hammerjs.js': 'node_modules/hammerjs/hammer.js',
-          'imagesloaded.js': 'node_modules/imagesloaded/imagesloaded.js',
-          'screenfull.js': 'node_modules/screenfull/dist/screenfull.js',
-          'velocity.js': 'node_modules/velocity-animate/velocity.js'
-        }
+        flatten: true, 
+        src: [
+          'node_modules/hammerjs/hammer.js',
+          'node_modules/imagesloaded/imagesloaded.js',
+          'node_modules/screenfull/dist/screenfull.js',
+          'node_modules/velocity-animate/velocity.js'
+        ],
+        dest: '.tmp/js/libs/'
       }
     },
     
@@ -101,7 +100,7 @@ module.exports = function(grunt) {
       server: {
         options: {
           port: 9000,
-          base: ['example', 'dist', 'bower_components'],
+          base: ['example', 'dist', 'node_modules'],
           livereload: true,
           open: true,
           hostname: 'localhost'
@@ -116,14 +115,14 @@ module.exports = function(grunt) {
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-less');
-  grunt.loadNpmTasks('grunt-bowercopy');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-clean');
 
 
-  grunt.registerTask('dev', ['less:dev', 'bowercopy:dev', 'uglify:dev'])
+  grunt.registerTask('dev', ['less:dev', 'copy:dev', 'uglify:dev'])
   
   grunt.registerTask('dist', ['dev', 'uglify:dist', 'clean:tmp']);
   

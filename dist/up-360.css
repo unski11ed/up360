@@ -1,12 +1,61 @@
-/* line 2, src\less\app.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/src\/less\/app\.less}line{font-family:\000032}}
+/* line 1, src\less\app.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/src\/less\/app\.less}line{font-family:\000031}}
+.up360-main {
+  position: relative;
+}
+/* line 4, src\less\app.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/src\/less\/app\.less}line{font-family:\000034}}
 .up360-main .up360-screen {
   position: relative;
   overflow: hidden;
 }
-/* line 7, src\less\app.less */
-@media -sass-debug-info{filename{font-family:file\:\/\/src\/less\/app\.less}line{font-family:\000037}}
+/* line 8, src\less\app.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/src\/less\/app\.less}line{font-family:\000038}}
+.up360-main .up360-screen * {
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* line 17, src\less\app.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/src\/less\/app\.less}line{font-family:\0000317}}
+.up360-main .up360-screen > * {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+/* line 25, src\less\app.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/src\/less\/app\.less}line{font-family:\0000325}}
+.up360-main .up360-screen img {
+  position: absolute;
+}
+/* line 29, src\less\app.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/src\/less\/app\.less}line{font-family:\0000329}}
+.up360-main .up360-screen > .low-res-content {
+  z-index: 1;
+}
+/* line 33, src\less\app.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/src\/less\/app\.less}line{font-family:\0000333}}
+.up360-main .up360-screen > .high-res-content {
+  z-index: 2;
+}
+/* line 38, src\less\app.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/src\/less\/app\.less}line{font-family:\0000338}}
 .up360-main .up360-content {
   position: absolute;
   transform-origin: center;
+}
+/* line 43, src\less\app.less */
+@media -sass-debug-info{filename{font-family:file\:\/\/src\/less\/app\.less}line{font-family:\0000343}}
+.up360-main .up360-touch {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
 }
