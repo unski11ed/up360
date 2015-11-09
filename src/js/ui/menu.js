@@ -1,8 +1,6 @@
-//Declare namespace
-var up360 = up360 || {};
-up360.UI = up360.UI || {};
+var Helpers = require('./../helpers.js');
 
-up360.UI.Menu = function(parentElement, settings){
+module.exports = function(parentElement, settings){
  	var panelElement, initialised = false, _this = this;
 
     function buildDOM(element) {
@@ -72,10 +70,10 @@ up360.UI.Menu = function(parentElement, settings){
         }
     }
 
-    this.OnPlayChanged = new up360.Helpers.Event();
-    this.OnZoomBarChanged = new up360.Helpers.Event();
-    this.OnModeChanged = new up360.Helpers.Event();
-    this.OnFullScreenChanged = new up360.Helpers.Event();
+    this.OnPlayChanged = new Helpers.Event();
+    this.OnZoomBarChanged = new Helpers.Event();
+    this.OnModeChanged = new Helpers.Event();
+    this.OnFullScreenChanged = new Helpers.Event();
 
     this.SetPlay = function (state) {
         if (!initialised)

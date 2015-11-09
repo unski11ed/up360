@@ -1,13 +1,12 @@
-//Declare namespace
-var up360 = up360 || {};
-up360.Rendering = up360.Rendering || {};
-
 /*
 class: ImagesRepository
-Creates img elements, and stores them in the cache object
-for further usage in the application
+	Creates img elements, and stores them in the cache object
+	for further usage in the application
 */
-up360.Rendering.ImageRepository = function(settings, currentLevelObject, forceReload) {
+
+var imagesloaded = require('imagesloaded');
+
+module.exports = function(settings, currentLevelObject, forceReload) {
 	var fastCache = {};
 
 	this.dispose = function () {
@@ -16,7 +15,7 @@ up360.Rendering.ImageRepository = function(settings, currentLevelObject, forceRe
 
 	/*Method returning the requested image:
 		* params:
-		*  frameIndex: numer rządanej klatki
+		*  frameIndex: numer żądanej klatki
 		*  tileId: identyfikator części obrazu
 		*  desiredLevelObject: z jakiego poziomu przybliżenia pobrać klatkę (jesli null - aktualny poziom)
 		*  callback: funkcja wywoływana po załadowaniu obrazu
@@ -53,7 +52,7 @@ up360.Rendering.ImageRepository = function(settings, currentLevelObject, forceRe
 			settings.onLoadStarted.Trigger(img);
 			
 			//Assign imageLoaded event via plugin
-			up360.Imports.imagesLoaded(img, function(instance, image){
+			imagesloaded(img, function(instance, image){
 				if (image.isLoaded) {
 					//Call Load Complete event
 					settings.onLoadComplete.Trigger(image.img);

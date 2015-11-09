@@ -1,8 +1,4 @@
-//Declare namespace
-var up360 = up360 || {};
-up360.UI = up360.UI || {};
-
-up360.UI.Gestures = function(engine, settings) {
+module.exports = function(engine, settings) {
 	var gestureObject;
 
 	//---------------------Pan definition------------------------------

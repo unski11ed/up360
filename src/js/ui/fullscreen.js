@@ -1,10 +1,9 @@
-//Declare namespace
-var up360 = up360 || {};
-up360.UI = up360.UI || {};
+var screenfull = require('screenfull'),
+    Helpers = require('./../helpers.js');;
 
-up360.UI.Fullscreen = function(player, engine) {
-    this.OnEnabled = new Event();
-    this.OnDisabled = new Event();
+module.exports = function(player, engine) {
+    this.OnEnabled = new Helpers.Event();
+    this.OnDisabled = new Helpers.Event();
 
     var _this = this;
 
@@ -20,26 +19,28 @@ up360.UI.Fullscreen = function(player, engine) {
     }
 
     this.enable = function () {
-        up360.Imports.screenfull.request(player);
+        screenfull.request(player);
     }
 
     this.disable = function () {
-        up360.Imports.screenfull.exit(player);
+        screenfull.exit(player);
     }
 
     this.init = function () {
         document.addEventListener(
-            up360.Imports.screenfull.raw.fullscreenchange, eventListener);
+            screenfull.raw.fullscreenchange, eventListener
+        );
     }
 
     this.dispose = function () {
         this.Disable();
         document.removeEventListener(
-            up360.Imports.screenfull.raw.fullscreenchange, eventListener);
+            screenfull.raw.fullscreenchange, eventListener
+        );
     }
 
     var eventListener = function () {
-        if (up360.Imports.screenfull.isFullscreen) {
+        if (screenfull.isFullscreen) {
             //Save copy
             if (!defaultScreenStyle)
                 defaultScreenStyle = window.getComputedStyle(player);

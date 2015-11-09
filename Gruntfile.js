@@ -36,12 +36,16 @@ module.exports = function(grunt) {
         flatten: true, 
         src: [
           'node_modules/hammerjs/hammer.js',
-          'node_modules/imagesloaded/imagesloaded.js',
+          'node_modules/imagesloaded/imagesloaded.pkgd.js',
           'node_modules/screenfull/dist/screenfull.js',
           'node_modules/velocity-animate/velocity.js'
         ],
         dest: '.tmp/js/libs/'
       }
+    },
+    
+    browserify: {
+      'dist/up-360.js': ['src/**/*.js']
     },
     
     uglify: {
@@ -79,7 +83,7 @@ module.exports = function(grunt) {
 
       js: {
         files: ['src/js/**/*.js'],
-        tasks: ['uglify:dev'],
+        tasks: ['browserify'],
         options: {
           spawn: false,
           livereload: true,
@@ -120,9 +124,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-browserify');
 
-
-  grunt.registerTask('dev', ['less:dev', 'copy:dev', 'uglify:dev'])
+  grunt.registerTask('dev', ['less:dev', 'browserify']);
   
   grunt.registerTask('dist', ['dev', 'uglify:dist', 'clean:tmp']);
   

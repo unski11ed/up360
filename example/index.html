@@ -7,12 +7,20 @@
 		<link rel="stylesheet" href="/bootstrap/dist/css/bootstrap-theme.min.css" />
 		<script type="text/javascript" src="/jquery/dist/jquery.min.js"></script>
 		<script type="text/javascript" src="/bootstrap/dist/js/bootstrap.min.js"></script>
+		
+		<!-- Include examples css and js -->
+		<link rel="stylesheet" href="/css/style.css" />
+
+		
+		<!-- Include compilled library -->
+		<script type="text/javascript" src="up-360.js"></script>
+		<link rel="stylesheet" href="up-360.css" />
 	</head>
 	
-	<body>
-		<aside>
-			<nav class="nav">
-				<ul class="ajax-menu">
+	<body class="clearfix">
+		<aside class="pull-left">
+			<nav>
+				<ul class="ajax-menu nav nav-pills nav-stacked nav-justified">
 					<li>
 						<a href="#example-default">Default</a>
 					</li>
@@ -21,18 +29,9 @@
 		</aside>
 		
 		<!-- Page content -->
-		<main>
+		<main class="pull-left">
 		</main>
 		
-		<!-- Subpage loading -->
-		<script type="text/javascript">
-			$(window).on('hashchange', function(){
-				var viewPath = window.location.hash ? window.location.hash.replace('#', '') : 'example-default';
-		
-				$('main').load('/' + viewPath + '/index.html', function(){
-					$(window).trigger('pageloaded');
-				});	
-			}).trigger('hashchange');
-		</script>
+		<script type="text/javascript" src="/js/main.js"></script>
 	</body>
 </html>

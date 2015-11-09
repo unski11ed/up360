@@ -1,8 +1,7 @@
-//Declare namespace
-var up360 = up360 || {};
-up360.UI = up360.UI || {};
+var Helpers = require('./../helpers.js'),
+    velocity = require('velocity');
 
-up360.UI.PreviewWindow = function(rootElement, animation, engine, settings) {
+module.exports = function(rootElement, animation, engine, settings) {
     var previewBox,
         previewWindow,
         
@@ -15,7 +14,7 @@ up360.UI.PreviewWindow = function(rootElement, animation, engine, settings) {
         var parentRect = element.parent.getBoundingClientRect(),
             rect = element.getBoundingClientRect();
             
-        return new up360.Helpers.Rectangle(
+        return new Helpers.Rectangle(
             rect.left - parentRect.left,
             rect.top - parentRect.top,
             rect.width, rect.height
@@ -46,7 +45,7 @@ up360.UI.PreviewWindow = function(rootElement, animation, engine, settings) {
 
             var contentPosition = engine.GetContentPosition();
 
-            up360.Imports.velocity(previewWindow, {
+            velocity(previewWindow, {
                 left: destLeft + 'px',
                 top: destTop + 'px',
             }, {
@@ -229,7 +228,7 @@ up360.UI.PreviewWindow = function(rootElement, animation, engine, settings) {
             return;
 
         if (!isHidden) {
-            up360.Imports.velocity(previewBox, {
+            velocity(previewBox, {
                 opacity: 0
             }, {
                 durtion: 200,
@@ -249,7 +248,7 @@ up360.UI.PreviewWindow = function(rootElement, animation, engine, settings) {
         this.UpdatePosition();
 
         if (isHidden) {
-            up360.Imports.velocity(previewBox, {
+            velocity(previewBox, {
                 opacity: 1
             }, {
                 duration: 200

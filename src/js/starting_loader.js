@@ -1,14 +1,10 @@
-//Declare namespace
-var up360 = up360 || {};
-up360.Rendering = up360.Rendering || {};
-
 /*
 class: StartFramesLoader
 Loads the first frames which will be rendered at the
 start of the application. Two modes are available:
 immediate and lazy 
 */
-up360.Rendering.StartFramesLoader = function(imageRepository, settings, completeCallback){
+module.exports = function(imageRepository, settings, completeCallback){
 	//Called when a single image is completed loading
 	//this - ImageElement
 	function makeImageLoadedCallback(totalFrames){

@@ -1,8 +1,7 @@
-//Declare namespace
-var up360 = up360 || {};
-up360.UI = up360.UI || {};
+var Helpers = require('./../helpers.js'),
+    velocity = require('velocity');
 
-up360.UI.Loader = function(parentElement) {
+module.exports = function(parentElement) {
 	var loaderElement, progressBarElement, initialised = false;
 
 	this.Init = function () {
@@ -19,7 +18,7 @@ up360.UI.Loader = function(parentElement) {
 	    loaderElement.style.opacity = 0;
 		loaderElement.style.display = 'block';
 		
-		up360.Imports.velocity(loaderElement, {
+		velocity(loaderElement, {
 			opacity: 1
 		}, {
 			duration: 50
@@ -37,7 +36,7 @@ up360.UI.Loader = function(parentElement) {
 		if (!initialised)
 			return;
 
-		up360.Imports.velocity(loaderElement, {
+		velocity(loaderElement, {
 			opacity: 0
 		}, {
 			duration: 400,

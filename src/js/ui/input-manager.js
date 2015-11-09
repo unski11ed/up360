@@ -1,15 +1,14 @@
-//Declare namespace
-var up360 = up360 || {};
-up360.UI = up360.UI || {};
+var HammerJs = require('hammerjs'),
+	Helpers = require('./../helpers.js');
 
-up360.UI.InputManager = function(parentElement, engine, gestures, animation, settings) {
+module.exports = function(parentElement, engine, gestures, animation, settings) {
 	var touchElement;
 	
 	function registerTouchEventHandlers() {
-		var mc = new up360.Imports.Hammer(touchElement);
+		var mc = new HammerJs.Hammer(touchElement);
 
-		mc.add(new up360.Imports.Hammer.Pan({ threshold: 0, pointers: 0 }));
-		mc.add(new up360.Imports.Hammer.Pinch({ threshold: 0 })).recognizeWith([mc.get('pan')]);
+		mc.add(new HammerJs.Pan({ threshold: 0, pointers: 0 }));
+		mc.add(new HammerJs.Pinch({ threshold: 0 })).recognizeWith([mc.get('pan')]);
 
 		mc.on("panstart panmove panend", onPan);
 		mc.on("pinchstart pinchmove", onPinch);
@@ -85,7 +84,7 @@ up360.UI.InputManager = function(parentElement, engine, gestures, animation, set
 		switch (settings.gesturesType) {
 			default:
 			case 'auto':
-				if (up360.Helpers.isMobile.any()) {
+				if (Helpers.Functions.isMobile.any()) {
 					registerTouchEventHandlers();
 				} else {
 					registerDesktopEventHandlers();

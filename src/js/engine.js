@@ -1,8 +1,8 @@
-//Declare namespace
-var up360 = up360 || {};
-up360.Rendering = up360.Rendering || {};
+var Helpers = require('./helpers.js'),
+	ImageRepository = require('./image_repository.js'),
+	StartingLoader = require('./starting_loader.js');
 
-up360.Rendering.Engine = function(parentElement, settings){
+module.exports = function(parentElement, settings){
 	var defaultFrameWidth,
 		defaultFrameHeight,
 		screen,
@@ -31,9 +31,9 @@ up360.Rendering.Engine = function(parentElement, settings){
 		zoomValue = settings.minZoom;
 		
 		//Setup objects
-		sourceRectangle = new up360.Helpers.Rectangle(0, 0, defaultFrameWidth, defaultFrameHeight);
-		imageRepository = new up360.Rendering.ImageRepository(settings, currentLevelObject, settings.forceReload);
-		startFramesLoader = new up360.Rendering.StartFramesLoader(imageRepository, settings, function(){
+		sourceRectangle = new Helpers.Rectangle(0, 0, defaultFrameWidth, defaultFrameHeight);
+		imageRepository = new ImageRepository(settings, currentLevelObject, settings.forceReload);
+		startFramesLoader = new StartingLoader(imageRepository, settings, function(){
 			//True starting point - launched after loading the low res images
 			screenRectangle.Update();
 
@@ -52,7 +52,7 @@ up360.Rendering.Engine = function(parentElement, settings){
 		setUpDOM();
 
 		//Save sizes
-		screenRectangle = new up360.Helpers.ScreenRectangle(screen);
+		screenRectangle = new Helpers.ScreenRectangle(screen);
 
 		defaultFrameWidth = screenRectangle.Width;
 		defaultFrameHeight = screenRectangle.Height;
@@ -407,7 +407,7 @@ up360.Rendering.Engine = function(parentElement, settings){
 			pointY = screenRectangle.Height / 2;
 
 		//If mouse targeting - origin point = mouse position
-		if (isMouseOnScreen && !up360.Helpers.isMobile.any() && zoomValue > lastValue) {
+		if (isMouseOnScreen && !Helpers.Functions.isMobile.any() && zoomValue > lastValue) {
 			pointX = mousePosX;
 			pointY = mousePosY;
 		}

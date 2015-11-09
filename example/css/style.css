@@ -1,0 +1,20 @@
+nav{
+	padding: 10px;
+	max-width: 150px;
+}
+
+main{
+	width: calc(100% - 150px);
+}
+
+/*===============Example 1===================*/
+#wrap-example-1 .example-holder{
+	margin: 0 auto;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 800px;
+	height: 600px;
+	background: aquamarine;
+}
+

@@ -1,8 +1,6 @@
-//Declare namespace
-var up360 = up360 || {};
-up360.Settings = up360.Settings || {};
+var Helpers = require('./helpers.js');
 
-up360.Settigns.default = {
+module.exports = {
 	// Default values
 	maxZoom: 2,
 	minZoom: 1,
@@ -45,21 +43,21 @@ up360.Settigns.default = {
 	
 	gesturesType: 'auto',                             //values: auto || desktop||touch
 	
-	onLoadStarted: new up360.Helpers.Event(),         //params: $img
-	onLoadComplete: new up360.Helpers.Event(),        //params: $img
+	onLoadStarted: new Helpers.Event(),         //params: $img
+	onLoadComplete: new Helpers.Event(),        //params: $img
 	
-	onInitComplete: new up360.Helpers.Event(),        //params: PluginInterface object    *modified by this object*
+	onInitComplete: new Helpers.Event(),        //params: PluginInterface object    *modified by this object*
 	
-	onContentMoved: new up360.Helpers.Event(),        //params: X, Y
-	onRotateComplete: new up360.Helpers.Event(),      //params: direction
-	onZoomChanged: new up360.Helpers.Event(),         //params: NormalizedValue, Value, MinZoom, MaxZoom
-	onFrameChanged: new up360.Helpers.Event(),        //params: currentFrame
+	onContentMoved: new Helpers.Event(),        //params: X, Y
+	onRotateComplete: new Helpers.Event(),      //params: direction
+	onZoomChanged: new Helpers.Event(),         //params: NormalizedValue, Value, MinZoom, MaxZoom
+	onFrameChanged: new Helpers.Event(),        //params: currentFrame
 	
-	onLowResFrameLoaded: new up360.Helpers.Event(),   //params: frameCount, maxFrames
+	onLowResFrameLoaded: new Helpers.Event(),   //params: frameCount, maxFrames
 	
-	onDrawFrame: new up360.Helpers.Event(),           //params: currentFrame, isHiRes, lowestLevelUrl
+	onDrawFrame: new Helpers.Event(),           //params: currentFrame, isHiRes, lowestLevelUrl
 	
-	onBuildComplete: new up360.Helpers.Event(),       //params: buildPartComplete         *triggered by this object*
+	onBuildComplete: new Helpers.Event(),       //params: buildPartComplete         *triggered by this object*
 	
-	onDisposed: new up360.Helpers.Event(),            //                                  *triggered by this object*
+	onDisposed: new Helpers.Event(),            //                                  *triggered by this object*
 }
