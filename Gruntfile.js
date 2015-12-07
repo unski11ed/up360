@@ -45,7 +45,19 @@ module.exports = function(grunt) {
     },
     
     browserify: {
-      'dist/up-360.js': ['src/**/*.js']
+      js: {
+        src: 'src/js/start.js',
+        dest: 'dist/up-360.js',
+      },
+      
+      options: {
+        alias: {
+          'hammerjs': './node_modules/hammerjs/hammer.min.js',
+          'imagesloaded': './node_modules/imagesloaded/imagesloaded.pkgd.min.js',
+          'screenfull': './node_modules/screenfull/dist/screenfull.js',
+          'velocity': './node_modules/velocity-animate/velocity.min.js'
+        }
+      }
     },
     
     uglify: {

@@ -57,7 +57,7 @@ module.exports = function(parentElement) {
 	  	loaderElement = document.createElement('div');
 		loaderElement.classList.add('up360-loading');
 		loaderElement.style.display = 'none';
-		loaderElement.innerHtml = 
+		loaderElement.innerHTML = 
 			'<div class="loading">' +
 			'	<span>Creating object</span>' +
 			'   <div class="progress">' +
@@ -65,8 +65,8 @@ module.exports = function(parentElement) {
 			'	</div>' +
 			'</div>';
 	
-		progressBarElement = loaderElement.querySelector('.progressbar');
-
 		parentElement.appendChild(loaderElement);
+		
+		progressBarElement = parentElement.querySelector('.progressbar');	
 	}
 }

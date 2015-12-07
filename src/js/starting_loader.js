@@ -31,8 +31,9 @@ module.exports = function(imageRepository, settings, completeCallback){
 	*/
 	this.immediateLoader = function() {
 		var totalFrames = settings.maxFrame - settings.minFrame;
+		var loadCallback = makeImageLoadedCallback(totalFrames);
 		for (var i = settings.minFrame; i <= settings.maxFrame; i++) {
-			imageRepository.getImage(i, 0, settings.levelObjects[0], makeImageLoadedCallback(totalFrames));
+			imageRepository.getImage(i, 0, settings.levelObjects[0], loadCallback);
 		}
 	};
 
@@ -49,10 +50,10 @@ module.exports = function(imageRepository, settings, completeCallback){
 		loadSettings.frameSkip = loadSettings.frameSkip === undefined ? 2 : loadSettings.frameSkip;
 
 		var totalFrames = Math.ceil(settings.maxFrame - settings.minFrame / loadSettings.frameSkip);
-
+		var loadCallback = makeImageLoadedCallback(totalFrames);
 		for (var i = 0; i < loadSettings.frameSkip; i++) {
 			for (var j = settings.minFrame + i; j <= settings.maxFrame; j += loadSettings.frameSkip) {
-				imageRepository.getImage(j, 0, settings.levelObjects[0], makeImageLoadedCallback(totalFrames));
+				imageRepository.getImage(j, 0, settings.levelObjects[0], loadCallback);
 			}
 		}
 	};

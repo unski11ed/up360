@@ -33,9 +33,12 @@ module.exports = function(parentElement, settings){
 		//Setup objects
 		sourceRectangle = new Helpers.Rectangle(0, 0, defaultFrameWidth, defaultFrameHeight);
 		imageRepository = new ImageRepository(settings, currentLevelObject, settings.forceReload);
-		startFramesLoader = new StartingLoader(imageRepository, settings, function(){
+		startFramesLoader = new StartingLoader(imageRepository, settings, function(images){
+			images.forEach(function(image){
+				lowResContent.appendChild(image);
+			});
 			//True starting point - launched after loading the low res images
-			screenRectangle.Update();
+			screenRectangle.update();
 
 			_this.Draw();
 
@@ -74,6 +77,11 @@ module.exports = function(parentElement, settings){
 		touch.addEventListener('mouseleave', function(){
 			isMouseOnScreen = false;
 		});
+		
+		//AutoLoad
+		if(settings.autoload){
+			this.Load();
+		}
 	}
 
 	this.Dispose = function () {
@@ -114,7 +122,7 @@ module.exports = function(parentElement, settings){
 	}
 
 	this.UpdateSize = function () {
-		screenRectangle.Update();
+		screenRectangle.update();
 
 		sourceRectangle.width = screenRectangle.Width;
 		sourceRectangle.height = screenRectangle.Height;
@@ -324,8 +332,8 @@ module.exports = function(parentElement, settings){
 
 		screen.appendChild(content);
 		
-		content.append(lowResContent);
-		content.append(highResContent);
+		content.appendChild(lowResContent);
+		content.appendChild(highResContent);
 	}
 
 	function resetDOM() {
@@ -482,6 +490,6 @@ module.exports = function(parentElement, settings){
 	}
 
 	function clearScreen() {
-		highResContent.innerHtml = '';
+		highResContent.innerHTML = '';
 	}	
 };

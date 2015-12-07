@@ -37,7 +37,7 @@
 	
 		var animation = new UI.Animation(engine, settings.maxFrame, settings);
 		var ui = new UI.Menu(rootElement);
-		var previewWindow = UI.PreviewWindow(rootElement, animation, engine, settings.previewWindow);
+		var previewWindow = new UI.PreviewWindow(rootElement, animation, engine, settings.previewWindow);
 		var preLoader = new UI.Loader(rootElement);
 		var fullscreen = new UI.FullScreen(rootElement, engine);
 		var gestures = new UI.Gestures(engine, settings);

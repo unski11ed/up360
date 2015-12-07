@@ -171,6 +171,10 @@ module.exports = {
 			any: function() {
 				return (this.Android() || this.BlackBerry() || this.iOS() || this.Opera() || this.Windows());
 			}
+		},
+		
+		intToPaddedString: function(number){
+			return (this < 10 ? '0' : '') + number.toString();
 		}
 	}
 };

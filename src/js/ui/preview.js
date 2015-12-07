@@ -1,5 +1,5 @@
 var Helpers = require('./../helpers.js'),
-    velocity = require('velocity');
+    velocity = null;
 
 module.exports = function(rootElement, animation, engine, settings) {
     var previewBox,
@@ -24,7 +24,7 @@ module.exports = function(rootElement, animation, engine, settings) {
     function registerEventHandlers() {
         //*********************************************************************************    
         //Handle click on the preview
-        previewBox.addEventHandler('click', function(e) {
+        previewBox.addEventListener('click', function(e) {
             if (e.target !== previewBox.getElementsByTagName('img')[0])
                 return;
 
@@ -76,20 +76,20 @@ module.exports = function(rootElement, animation, engine, settings) {
         var isMouseDown = false;
 
         var lastMouseX, lastMouseY;
-        previewWindow.addEventHandler('mousedown', function (e) {
+        previewWindow.addEventListener('mousedown', function (e) {
             e.stopImmediatePropagation();
             animation.Stop();
             isMouseDown = true;
         })
-        previewWindow.addEventHandler('mouseup', function (e) {
+        previewWindow.addEventListener('mouseup', function (e) {
             e.stopImmediatePropagation();
             isMouseDown = false;
         });
 
-        previewBox.addEventHandler('mouseup mouseleave', function(){
+        previewBox.addEventListener('mouseup mouseleave', function(){
             isMouseDown = false;
         });
-        previewBox.addEventHandler('mousemove', function (e) {
+        previewBox.addEventListener('mousemove', function (e) {
             if (isMouseDown) {
                 if (!lastMouseX && !lastMouseY) {
                     lastMouseX = e.clientX;
@@ -125,7 +125,7 @@ module.exports = function(rootElement, animation, engine, settings) {
     //------------------------------Private functions--------------------------------
     function buildDOM() {
         previewBox = document.createElement('div');
-        previewBox.innerHtml = '<img />';
+        previewBox.innerHTML = '<img />';
         previewBox.classList.toggle('zoom360');
         
         previewWindow = document.createElement("div");
@@ -153,7 +153,7 @@ module.exports = function(rootElement, animation, engine, settings) {
         x = x + previewWindow.clientWidth > previewWindow.clientWidth ? previewBox.clientWidth - previewWindow.clientWidth : x;
 
         y = y < 0 ? 0 : y;
-        y = y + previewWindow.clientHeight() > previewBox.clientHeight() ? previewBox.clientHeight - previewWindow.clientHeight() : y;
+        y = y + previewWindow.clientHeight > previewBox.clientHeight ? previewBox.clientHeight - previewWindow.clientHeight : y;
 
         return {
             x: x,

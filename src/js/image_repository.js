@@ -4,7 +4,8 @@ class: ImagesRepository
 	for further usage in the application
 */
 
-var imagesloaded = require('imagesloaded');
+var imagesloaded = require('imagesloaded'),
+	helpers = require('./helpers.js');
 
 module.exports = function(settings, currentLevelObject, forceReload) {
 	var fastCache = {};
@@ -33,7 +34,7 @@ module.exports = function(settings, currentLevelObject, forceReload) {
 		var cacheElement = cacheIndexElement[index];
 		if (cacheElement === undefined) {
 			//Create the src URL
-			var src = levelObject.resourceUrl.replace('{index}', frameIndex.toPaddedString())
+			var src = levelObject.resourceUrl.replace('{index}', helpers.Functions.intToPaddedString(frameIndex))
 											 .replace('{offset}', tileId);
 			//If force reload - add a timestamp to the url to bypass browser cache					 
 			if (forceReload) {
@@ -47,20 +48,23 @@ module.exports = function(settings, currentLevelObject, forceReload) {
 			img.addEventListener('dragstart', function(e){
 				e.preventDefault();
 			});
+			img.src = src;
 
 			//Call Load Started event
 			settings.onLoadStarted.Trigger(img);
 			
 			//Assign imageLoaded event via plugin
 			imagesloaded(img, function(instance, image){
-				if (image.isLoaded) {
-					//Call Load Complete event
-					settings.onLoadComplete.Trigger(image.img);
-					//Add the created image to cache object
-					fastCache[image.img.dataset.frameIndex][image.img.index] = image.img;
-					//call the provided callback
-					callback.call(image.img, false);
-				}
+				instance.images.forEach(function(image){
+					if(image.isLoaded){
+						//Call Load Complete event
+						settings.onLoadComplete.Trigger(image.img);
+						//Add the created image to cache object
+						fastCache[image.img.dataset.frameIndex][image.img.index] = image.img;
+						//call the provided callback
+						callback.call(image.img, false);
+					}
+				})
 			});
 			return false;
 		} else {

@@ -17,7 +17,7 @@ module.exports = function(parentElement, settings){
                   + "</div>";
 
         panelElement = document.createElement('div');
-        panelElement.innerHtml = html;
+        panelElement.innerHTML = html;
 		
 		element.appendChild(panelElement);
     }
@@ -61,7 +61,7 @@ module.exports = function(parentElement, settings){
         });
     }
 
-    this.init = function () {
+    this.Init = function () {
         if (!initialised) {
             buildDOM(parentElement);
             registerEventHandlers();
