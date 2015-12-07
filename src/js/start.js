@@ -152,7 +152,11 @@
 				preLoader.Dispose();
 				element.removeChild(parentContainer);
 			}
-		};
+		}; 
+		
+		if(settings.autoinit){
+			interfaceObject.Init();
+		}
 		
 		return interfaceObject;
 	}

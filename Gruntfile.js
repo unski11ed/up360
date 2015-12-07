@@ -65,7 +65,6 @@ module.exports = function(grunt) {
           'dist/up-360.min.css': ['dist/up-360.css'],
         },
         options: {
-          mangle: true,
           compress: true
         }
       }
