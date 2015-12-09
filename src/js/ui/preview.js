@@ -1,5 +1,5 @@
 var Helpers = require('./../helpers.js'),
-    velocity = null;
+    velocity = require('velocity');
 
 module.exports = function(rootElement, animation, engine, settings) {
     var previewBox,
@@ -220,7 +220,7 @@ module.exports = function(rootElement, animation, engine, settings) {
         if (!initialized)
             return;
 
-        previewBox.querySelector('img').src(url);
+        previewBox.querySelector('img').src = url;
     }
 
     this.Hide = function () {

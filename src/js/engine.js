@@ -57,8 +57,8 @@ module.exports = function(parentElement, settings){
 		//Save sizes
 		screenRectangle = new Helpers.ScreenRectangle(screen);
 
-		defaultFrameWidth = screenRectangle.Width;
-		defaultFrameHeight = screenRectangle.Height;
+		defaultFrameWidth = screenRectangle.width;
+		defaultFrameHeight = screenRectangle.height;
 
 		//Save for quick further use
 		contentWidth = content.offsetWidth;
@@ -124,8 +124,8 @@ module.exports = function(parentElement, settings){
 	this.UpdateSize = function () {
 		screenRectangle.update();
 
-		sourceRectangle.width = screenRectangle.Width;
-		sourceRectangle.height = screenRectangle.Height;
+		sourceRectangle.width = screenRectangle.width;
+		sourceRectangle.height = screenRectangle.height;
 
 		scaleContentToScreen();
 
@@ -214,9 +214,6 @@ module.exports = function(parentElement, settings){
 					//Po załadowaniu:
 					var image = this;
 
-					if ((image.parentElement === null || (!loadedFromCache)) && isLowLevelObject)
-						return;
-					
 					//Prevent displaying image from a differentframe
 					if (image.dataset.frameIndex != currentFrame)
 						return;
@@ -224,12 +221,13 @@ module.exports = function(parentElement, settings){
 					image.style.left = (partWidth * x) + 'px';
 					image.style.top = (partHeight * y) + 'px';
 					image.style.zIndex = levelObject.zoomThreshold;
-					image.setAttribute('width', partWidth);
-					image.setAttribute('height', partHeight);
+					image.width = partWidth;
+					image.height = partHeight;
 
 					if (levelObject.zoomThreshold <= 1) {
 						//Draw Low Resolution
-						lastActiveLowResImage.classList.remove('low-active');
+						if(lastActiveLowResImage)
+							lastActiveLowResImage.classList.remove('low-active');
 						image.classList.add('low-active');
 						lastActiveLowResImage = image;
 
@@ -238,9 +236,12 @@ module.exports = function(parentElement, settings){
 					} else {
 						//Draw High Resolution chunk
 						//Jeśli element nie był jeszcze narysowany, to narysuj go na ekranie
-						if (highResContent.childNodes.indexOf(image) < 0) {
-							highResContent.appendChild(image);
+						for(var i = 0; i < highResContent.childNodes.length; i++){
+							if(highResContent.childNodes[i] === image)
+							return;
 						}
+
+						highResContent.appendChild(image);
 					}
 				}, isLowLevelObject); //Na najniższym poziomie przybliżenia ładuj tylko z cachu
 			}
@@ -270,10 +271,10 @@ module.exports = function(parentElement, settings){
 	function getContentRect() {
 		var rect = content.getBoundingClientRect();
 		return {
-			left: rect.left - screenRectangle.Left,
-			right: rect.right - screenRectangle.Left,
-			top: rect.top - screenRectangle.Top,
-			bottom: rect.bottom - screenRectangle.Top,
+			left: rect.left - screenRectangle.left,
+			right: rect.right - screenRectangle.left,
+			top: rect.top - screenRectangle.top,
+			bottom: rect.bottom - screenRectangle.top,
 			width: rect.width,
 			height: rect.height
 		};
@@ -341,7 +342,7 @@ module.exports = function(parentElement, settings){
 	}
 
 	function scaleContentToScreen() {
-		settings.minZoom = (screenRectangle.Width / highestLevelObject.width + screenRectangle.Height / highestLevelObject.height) / 2 * settings.maxZoom;
+		settings.minZoom = (screenRectangle.width / highestLevelObject.width + screenRectangle.height / highestLevelObject.height) / 2 * settings.maxZoom;
 
 		_this.ZoomNormalized = 0;
 
@@ -366,8 +367,8 @@ module.exports = function(parentElement, settings){
 	function centerContent() {
 		var rect = getContentRect();
 
-		contentPosition.X((screenRectangle.Width - rect.width) / 2);
-		contentPosition.Y((screenRectangle.Height - rect.height) / 2);
+		contentPosition.X((screenRectangle.width - rect.width) / 2);
+		contentPosition.Y((screenRectangle.height - rect.height) / 2);
 
 		updateCss();
 	}
@@ -411,8 +412,8 @@ module.exports = function(parentElement, settings){
 		var currentRect = getContentRect();
 
 		//Origin point - center
-		var pointX = screenRectangle.Width / 2,
-			pointY = screenRectangle.Height / 2;
+		var pointX = screenRectangle.width / 2,
+			pointY = screenRectangle.height / 2;
 
 		//If mouse targeting - origin point = mouse position
 		if (isMouseOnScreen && !Helpers.Functions.isMobile.any() && zoomValue > lastValue) {
@@ -447,13 +448,13 @@ module.exports = function(parentElement, settings){
 
 		var cpX = contentPosition.X(),
 			cpY = contentPosition.Y();
-		if (rect.width < screenRectangle.Width && rect.height < screenRectangle.Height) {
+		if (rect.width < screenRectangle.width && rect.height < screenRectangle.Height) {
 			//Content smaller than screen =>
 			//Horizontal
 			if (cpX < 0)
 				contentPosition.X(0);
-			else if (cpX + contentPosition.Width() > screenRectangle.Width)
-				contentPosition.X(screenRectangle.Width - contentPosition.Width())
+			else if (cpX + contentPosition.Width() > screenRectangle.width)
+				contentPosition.X(screenRectangle.width - contentPosition.Width())
 			//Vertical
 			if (cpY < 0)
 				contentPosition.Y(0);
@@ -462,19 +463,19 @@ module.exports = function(parentElement, settings){
 		} else {
 			//Content larger than screen =>
 			var percentage = (zoomValue - 1) / settings.maxZoom,
-			maxY = Math.round(screenRectangle.Height / 2 * percentage),
-			maxX = Math.round(screenRectangle.Width / 2 * percentage);
+			maxY = Math.round(screenRectangle.height / 2 * percentage),
+			maxX = Math.round(screenRectangle.width / 2 * percentage);
 
 			//Vertical
 			if (cpY > maxY)
 				contentPosition.Y(maxY);
-			else if (cpY + contentPosition.Height() < screenRectangle.Height - maxY)
-				contentPosition.Y(screenRectangle.Height - maxY - contentPosition.Height())
+			else if (cpY + contentPosition.Height() < screenRectangle.height - maxY)
+				contentPosition.Y(screenRectangle.height - maxY - contentPosition.Height())
 			//Horizontal
 			if (cpX > maxX)
 				contentPosition.X(maxX);
-			else if (cpX + contentPosition.Width() < screenRectangle.Width - maxX)
-				contentPosition.X(screenRectangle.Width - maxX - contentPosition.Width())
+			else if (cpX + contentPosition.Width() < screenRectangle.width - maxX)
+				contentPosition.X(screenRectangle.width - maxX - contentPosition.Width())
 		}
 	}
 

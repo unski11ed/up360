@@ -1,9 +1,11 @@
-.up360-main{
+.up360{
 	position: relative;
 	
 	.up360-screen{
 		position: relative;
 		overflow: hidden;
+		width: 100%;
+		height: 100%;
 		
 		*{
 		    margin: 0;
@@ -21,23 +23,26 @@
 		    left: 0;
 		    top: 0;
 		}
-		
-		img{
-		    position: absolute;
-		}
-		
-		>.low-res-content{
-		    z-index: 1;
-		}
-		
-		>.high-res-content{
-		    z-index: 2;
-		}
 	}
 	
 	.up360-content{
 		position: absolute;
 		transform-origin: center;
+		
+		.low-res-content{
+		    z-index: 1;
+			img{ 
+				opacity: 0;
+				position: absolute;
+				&.low-active{
+					opacity: 1;
+				} 
+			} 
+		}
+		
+		.high-res-content{
+		    z-index: 2;
+		}
 	}
 	
 	.up360-touch{

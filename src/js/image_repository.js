@@ -60,7 +60,7 @@ module.exports = function(settings, currentLevelObject, forceReload) {
 						//Call Load Complete event
 						settings.onLoadComplete.Trigger(image.img);
 						//Add the created image to cache object
-						fastCache[image.img.dataset.frameIndex][image.img.index] = image.img;
+						fastCache[image.img.dataset.frameIndex][image.img.dataset.index] = image.img;
 						//call the provided callback
 						callback.call(image.img, false);
 					}
