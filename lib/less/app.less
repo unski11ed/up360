@@ -1,22 +1,14 @@
 .up360{
 	position: relative;
-	
+    min-width: 640px;
+    
 	.up360-screen{
 		position: relative;
 		overflow: hidden;
 		width: 100%;
 		height: 100%;
 		
-		*{
-		    margin: 0;
-		    padding: 0;
-		    border: none;
-		    font-size: 100%;
-		    font: inherit;
-		    vertical-align: baseline;
-		}
-		
-		> *{
+		> * {
 		    width: 100%;
 		    height: 100%;
 		    position: absolute;
@@ -30,10 +22,14 @@
 		transform-origin: center;
 		
 		.low-res-content{
-		    z-index: 1;
+            z-index: 1;
+            
 			img{ 
 				opacity: 0;
-				position: absolute;
+                position: absolute;
+                top: 0;
+                left: 0;
+
 				&.low-active{
 					opacity: 1;
 				} 
