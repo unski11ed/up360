@@ -14,3 +14,8 @@ nav{
     align-items: center;
     min-height: 100vh;
 }
+
+#wrap-example-1 > * {
+    max-width: 640px;
+    width: 100%;
+}
