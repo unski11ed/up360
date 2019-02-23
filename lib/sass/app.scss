@@ -40,6 +40,14 @@
             }
         }
 
+        &__high-res {
+            position: relative;
+
+            > .up360__frame {
+                position: absolute;
+            }
+        }
+
         .up360--active-frame {
             opacity: 1;
         }
