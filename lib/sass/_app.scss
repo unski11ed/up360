@@ -1,3 +1,5 @@
+@import "./ui.scss";
+
 @mixin fill-layer {
     position: absolute;
     top: 0;
@@ -6,7 +8,9 @@
     bottom: 0;
 }
 
-.up360{
+$ui-padding: 1rem;
+
+.up360 {
     position: relative;
     height: 480px;
     width: 100%;
@@ -18,6 +22,14 @@
         position: relative;
         width: 100%;
         overflow: hidden;
+    }
+
+    &__panel-wrap {
+        position: absolute;
+        left: $ui-padding;
+        top: $ui-padding;
+        bottom: $ui-padding;
+        right: $ui-padding;
     }
 
     &__loading {
@@ -55,13 +67,7 @@
 
     &__touch {
         @include fill-layer();
-    }
-
-    &__panel-wrap {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
+        z-index: 5;
     }
 
     &__zoom {

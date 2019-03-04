@@ -1,5 +1,5 @@
 import up360 from './../../lib/js/main';
-import './../../lib/sass/app.scss';
+import './../../lib/sass/index.scss';
 
 var targetElement = document.querySelector('.example-holder');
 //TODO: Init fully

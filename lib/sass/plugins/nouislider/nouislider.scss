@@ -1,0 +1,51 @@
+$noUi-css-prefix: "noUi";
+@import "nouislider.base";
+@import "./../../variables";
+
+// Overrides
+.up360 .up360__zoom-bar {
+    .#{$noUi-css-prefix}-target {
+        &.#{$noUi-css-prefix}-vertical {
+            width: 2px;
+            border: none;
+            box-shadow: none;
+            border-radius: 0;
+            background: none;
+
+            .#{$noUi-css-prefix}-connects {
+                background-color: var(--secondry-color);
+            }
+        }
+    }
+
+    .#{$noUi-css-prefix}-handle {
+        width: var(--button-size-md);
+        height: var(--button-size-md);
+        
+        left: 0;
+        top: 0;
+
+        border: none;
+        border-radius: 50%;
+        background-color: var(--primary-color);
+        box-shadow: var(--button-shadow);
+        transform: translate(-50%, -50%);
+        transition: transform var(--button-transition),
+                    box-shadow var(--button-transition);
+        cursor: pointer;
+
+        &:focus {
+            outline: none;
+        }
+
+        &.#{$noUi-css-prefix}-active {
+            box-shadow: var(--button-shadow-active);
+            transform: scale(0.99) translate(-50%, -49%);
+        }
+
+        &::before,
+        &::after {
+            content: none;
+        }
+    }
+}
