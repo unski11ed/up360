@@ -69,11 +69,4 @@ $ui-padding: 1rem;
         @include fill-layer();
         z-index: 5;
     }
-
-    &__zoom {
-        position: absolute;
-        left: 10px;
-        bottom: 10px;
-        display: none;
-    }
 }
