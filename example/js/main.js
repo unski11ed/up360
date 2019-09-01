@@ -14,14 +14,13 @@ var up360Interface = up360(targetElement, {
     defaultPlayDirection: -1,
     rotationDivider: 10,
 
-    baseLayoutsUrl: "http://upstrakt.pl/wp-content/themes/superior/360/css/templates/",
+    resourceUrl: "http://localhost:8000/chunks/scene/{index}_{column}_{row}_{totalColumns}_{totalRows}_{resX}_{resY}.jpg",
 
     levelObjects: [
         {
             zoomThreshold: 1,
             width: 390,
             height: 311,
-            resourceUrl: "http://upstrakt.pl/wp-content/themes/superior/360/content/temida/390x311/{index}_0.jpg",
             columns: 1,
             rows: 1
         },
@@ -29,7 +28,6 @@ var up360Interface = up360(targetElement, {
             zoomThreshold: 2,
             width: 780,
             height: 622,
-            resourceUrl: "http://upstrakt.pl/wp-content/themes/superior/360/content/temida/780x622/{index}_{offset}.jpg",
             columns: 2,
             rows: 2
         },
@@ -37,7 +35,6 @@ var up360Interface = up360(targetElement, {
             zoomThreshold: 4,
             width: 1560,
             height: 1246,
-            resourceUrl: "http://upstrakt.pl/wp-content/themes/superior/360/content/temida/1560x1246/{index}_{offset}.jpg",
             columns: 4,
             rows: 4
         },
@@ -45,7 +42,6 @@ var up360Interface = up360(targetElement, {
             zoomThreshold: 8,
             width: 3121,
             height: 2494,
-            resourceUrl: "http://upstrakt.pl/wp-content/themes/superior/360/content/temida/3121x2494/{index}_{offset}.jpg",
             columns: 8,
             rows: 8
         }

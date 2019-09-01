@@ -13,7 +13,8 @@
         padding: 0;
         position: absolute;
         transition: transform var(--button-transition),
-                    box-shadow var(--button-transition);
+                    box-shadow var(--button-transition),
+                    opacity 400ms cubic-bezier(0.645, 0.045, 0.355, 1.000);
         z-index: 5;
         cursor: pointer;
 
@@ -44,6 +45,12 @@
         z-index: 5;
 
         .noUi-handle {
+            transition: transform var(--button-transition),
+                        box-shadow var(--button-transition),
+                        opacity 400ms cubic-bezier(0.645, 0.045, 0.355, 1.000);
+
+            transform: translate(-50%, -50%);
+
             background-image: url('./../icons/icon-search.svg');
             background-size: 75%;
             background-repeat: no-repeat;
@@ -121,30 +128,18 @@
         &__element--fullscreen,
         &__element--pan-rotate,
         &__element--play {
-            transform: translateX(85px);
+            //transform: translateX(85px);
             opacity: 0;
-            transition: transform 200ms cubic-bezier(0.680, -0.550, 0.265, 1.550),
-                        opacity 400ms cubic-bezier(0.645, 0.045, 0.355, 1.000);
         }
         &__element--zoom-bar .noUi-target {
-            .noUi-handle {
-                transition: transform 200ms cubic-bezier(0.680, -0.550, 0.265, 1.550),
-                            opacity 400ms cubic-bezier(0.645, 0.045, 0.355, 1.000);
-                transform: translate(-50%, -50%) translateX(85px);
+            .noUi-handle { 
                 opacity: 0;
             }
     
             .noUi-connects {
                 opacity: 0;
-                transition: opacity 200ms cubic-bezier(0.645, 0.045, 0.355, 1.000);
             }
         }
-    
-        // Transition Delays
-        &__element--fullscreen { transition-delay: 50ms; }
-        &__element--zoom-bar .noUi-target .noUi-handle { transition-delay: 100ms; }
-        &__element--pan-rotate { transition-delay: 150ms; }
-        &__element--play { transition-delay: 200ms; }
     }
 }
 
@@ -155,18 +150,23 @@
         &__element--pan-rotate,
         &__element--zoom-bar,
         &__element--play {
-            transform: translateX(0);
+            //transform: translateX(0);
             opacity: 1;
         }
         &__element--zoom-bar .noUi-target {
             .noUi-handle {
-                transform: translate(-50%, -50%) translateX(0);
+                transform: translate(-50%, -50%);
                 opacity: 1;
             }
             .noUi-connects {
                 opacity: 1;
             }
         }
+        // Transition Delays
+        &__element--fullscreen { transition-delay: 50ms; }
+        &__element--zoom-bar .noUi-target .noUi-handle { transition-delay: 100ms; }
+        &__element--pan-rotate { transition-delay: 150ms; }
+        &__element--play { transition-delay: 200ms; }
     }
 }
 
