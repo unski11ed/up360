@@ -6,6 +6,10 @@ var targetElement = document.querySelector('.example-holder');
 var up360Interface = up360(targetElement, {
     fillWindow: true,
 
+    backgroundColor: '#34261b',
+    primaryUiColor: '#555',
+    secondaryUiColor: '#fff',
+
     minFrame: 0,
     maxFrame: 359,
 
@@ -13,7 +17,7 @@ var up360Interface = up360(targetElement, {
     defaultPlayDirection: -1,
     rotationDivider: 10,
     
-    resourceUrl: "http://172.21.66.11:8000/output/{index}_{column}_{row}_{totalColumns}_{totalRows}_{resX}_{resY}.jpg",
+    resourceUrl: "http://192.168.0.200:8000/guitars/{index}_{column}_{row}_{totalColumns}_{totalRows}_{resX}_{resY}.jpg",
 
     levelObjects: [
         {
