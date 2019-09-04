@@ -12,15 +12,15 @@ $ui-padding: 1rem;
 
 .up360 {
     position: relative;
-    height: 480px;
     width: 100%;
+    padding-bottom: var(--ratio);
 
     display: flex;
     align-items: stretch;
 
 	&__screen{
-        position: relative;
-        width: 100%;
+        @include fill-layer();
+        
         overflow: hidden;
     }
 
