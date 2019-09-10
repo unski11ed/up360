@@ -75,10 +75,17 @@
             .up360__button::before {
                 background-image: url('./../icons/icon-play.svg');
             }
+
             right: 0;
             bottom: 0;
             width: var(--button-size-lg);
             height: var(--button-size-lg);
+
+            &--stop {
+                .up360__button::before {
+                    background-image: url('./../icons/icon-stop.svg');
+                }
+            }
         }
 
         &--pan-rotate {
