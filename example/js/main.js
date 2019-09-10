@@ -13,7 +13,7 @@ var up360Interface = up360(targetElement, {
     minFrame: 0,
     maxFrame: 359,
 
-    playSpeed: 80,
+    playSpeed: 40,
     defaultPlayDirection: -1,
     rotationDivider: 10,
     
