@@ -34,6 +34,70 @@ $ui-padding: 1rem;
 
     &__loading {
         @include fill-layer();
+        
+        @keyframes rotate-animation {
+            0% {
+                transform: rotateZ(0deg);
+            }
+            70% {
+                transform: rotateZ(0deg);
+            }
+            100% {
+                transform: rotateZ(180deg);
+            }
+        }
+
+        z-index: 10;
+
+        background-color: var(--loader-background);
+        
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        transition: opacity ease-out 300ms;
+
+        .loading {
+            width: 80px;
+            height: 80px;
+
+            position: relative;
+
+            &::after {
+                content: " ";
+                @include fill-layer();
+                
+                z-index: 2;
+
+                animation: rotate-animation 2s ease-in-out infinite;
+
+                background: url('./../icons/icon-wait.svg');
+                background-position: center center;
+                background-size: 50% 50%;
+                background-repeat: no-repeat;
+            }
+        }
+
+        .progress {
+            background: var(--loader-progress-background);
+            border-radius: 50%;
+            overflow: hidden;
+
+            @include fill-layer();
+
+            .progressbar {
+                position: absolute;
+                
+                bottom: 0;
+                left: 0;
+                right: 0;
+                top: auto;
+
+                height: var(--progress-percentage);
+
+                background: var(--loader-progress-foreground);
+            }
+        }
     }
 
     &__content {

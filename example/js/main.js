@@ -17,7 +17,7 @@ var up360Interface = up360(targetElement, {
     defaultPlayDirection: -1,
     rotationDivider: 10,
     
-    resourceUrl: "http://192.168.0.200:8000/guitars/{index}_{column}_{row}_{totalColumns}_{totalRows}_{resX}_{resY}.jpg",
+    resourceUrl: "http://mkurban.me/up360-photos/guitars/{index}_{column}_{row}_{totalColumns}_{totalRows}_{resX}_{resY}.jpg",
 
     levelObjects: [
         {
