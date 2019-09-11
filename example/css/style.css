@@ -1,5 +1,6 @@
 body {
     background-color: #000;
+    margin: 0;
 }
 
 nav{
@@ -8,11 +9,15 @@ nav{
 }
 
 /*===============Example 1===================*/
+main {
+    padding: 10px;
+}
+
 #wrap-example-1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    max-height: calc(100vh - 20px);
 }
 
 #wrap-example-1 > * {

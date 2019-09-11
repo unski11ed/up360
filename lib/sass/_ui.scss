@@ -23,7 +23,8 @@
         position: absolute;
         transition: transform var(--button-transition),
                     box-shadow var(--button-transition);
-                    
+        -webkit-tap-highlight-color: transparent;
+
         z-index: 5;
         cursor: pointer;
 
