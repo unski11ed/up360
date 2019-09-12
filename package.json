@@ -13,6 +13,15 @@
         "start": "rollup -c && parcel ./example/index.html --open --port 8080 --out-dir=.temp",
         "build:lib": "rm ./dist/* && rollup -c"
     },
+    "files": [
+        "dist/up360.cjs.js",
+        "dist/up360.cjs.min.js",
+        "dist/up360.cjs.umd.js",
+        "dist/up360.cjs.umd.min.js",
+        "dist/up360.esm.js",
+        "dist/up360.css",
+        "dist/up360.min.css"
+    ],
     "devDependencies": {
         "autoprefixer": "^9.6.1",
         "less": "^3.9.0",
