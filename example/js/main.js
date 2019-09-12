@@ -1,5 +1,5 @@
-import up360 from './../../lib/js/main';
-import './../../lib/sass/index.scss';
+import up360 from './../../dist/up360.esm';
+import './../../dist/up360.css';
 
 var targetElement = document.querySelector('#wrap-example');
 

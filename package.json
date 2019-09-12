@@ -1,6 +1,6 @@
 {
     "name": "up360",
-    "title": "up-360 Interactive rotating presentation",
+    "title": "up360 Interactive Rotated Presentation",
     "repository": {
         "type": "git",
         "url": "https://github.com/unski11ed/up-360.git"
@@ -10,26 +10,28 @@
     "browser": "dist/up360.umd.js",
     "version": "0.1.0",
     "scripts": {
-        "start": "parcel ./example/index.html --open --host=192.168.0.200 --port 8080",
+        "start": "parcel ./example/index.html --open --host=0.0.0.0 --port 8080 --out-dir=.temp",
         "build:lib": "rm ./dist/* && rollup -c"
     },
     "devDependencies": {
         "less": "^3.9.0",
-        "parcel-bundler": "^1.11.0",
+        "node-sass": "^4.12.0",
+        "parcel-bundler": "^1.12.3",
         "rollup": "^1.1.2",
         "rollup-plugin-commonjs": "^9.2.0",
         "rollup-plugin-node-resolve": "^4.0.0",
+        "rollup-plugin-postcss": "^2.0.3",
+        "rollup-plugin-scss": "^1.0.2",
+        "rollup-plugin-terser": "^5.1.2",
         "sass": "^1.17.0"
     },
     "dependencies": {
         "@tweenjs/tween.js": "^17.3.0",
         "hammerjs": "^2.0.4",
         "imagesloaded": "^4.1.4",
-        "impetus": "^0.8.8",
-        "input-range-scss": "^1.5.1",
-        "jquery": "^3.3.1",
+        "jquery": "^3.4.1",
         "nouislider": "^13.1.5",
-        "screenfull": "^4.0.0",
-        "velocity-animate": "^1.2.2"
+        "postcss-url": "^8.0.0",
+        "screenfull": "^4.0.0"
     }
 }
