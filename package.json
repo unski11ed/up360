@@ -8,7 +8,7 @@
     "main": "dist/up360.cjs.js",
     "module": "dist/up360.esm.js",
     "browser": "dist/up360.umd.js",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "scripts": {
         "start": "rollup -c && parcel ./example/index.html --open --port 8080 --out-dir=.temp",
         "build:lib": "rm ./dist/* && rollup -c"
