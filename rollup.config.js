@@ -3,6 +3,7 @@ import commonjs from 'rollup-plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import postcssUrl from 'postcss-url';
+import autoprefixer from 'autoprefixer';
 
 export default [
     // JS
@@ -27,7 +28,8 @@ export default [
                 plugins: [
                     postcssUrl({
                         url: 'inline'
-                    })
+                    }),
+                    autoprefixer()
                 ],
                 extract: 'dist/up360.css',
             }),
@@ -59,7 +61,8 @@ export default [
                 plugins: [
                     postcssUrl({
                         url: 'inline'
-                    })
+                    }),
+                    autoprefixer()
                 ],
                 extract: 'dist/up360.min.css',
                 minimize: true,
