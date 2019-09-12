@@ -3,14 +3,14 @@
     "title": "up360 Interactive Rotated Presentation",
     "repository": {
         "type": "git",
-        "url": "https://github.com/unski11ed/up-360.git"
+        "url": "https://github.com/unski11ed/up360.git"
     },
     "main": "dist/up360.cjs.js",
     "module": "dist/up360.esm.js",
     "browser": "dist/up360.umd.js",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "scripts": {
-        "start": "parcel ./example/index.html --open --host=0.0.0.0 --port 8080 --out-dir=.temp",
+        "start": "rollup -c && parcel ./example/index.html --open --port 8080 --out-dir=.temp",
         "build:lib": "rm ./dist/* && rollup -c"
     },
     "devDependencies": {
