@@ -1,14 +1,8 @@
 import up360 from './../../lib/js/main';
 import './../../lib/sass/index.scss';
 
-// TODO:
-// 1. Reload on zoomed rotate
-// 2. On resize some wierd shit
-// 3. Slow rotation on touch
-// 4. Fullscreen
-// 5. Min height
-var targetElement = document.querySelector('.example-holder');
-//TODO: Init fully
+var targetElement = document.querySelector('#wrap-example');
+
 var up360Interface = up360(targetElement, {
     fillWindow: true,
 

@@ -120,7 +120,7 @@
                 background-image: url('./../icons/icon-fullscreen.svg');
             }
 
-            &--exit {
+            &--enabled {
                 .up360__button::before {
                     background-image: url('./../icons/icon-fullscreen-exit.svg');
                 }

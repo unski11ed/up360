@@ -2,25 +2,20 @@ body {
     background-color: #000;
     margin: 0;
 }
-
-nav{
-	padding: 10px;
-	max-width: 150px;
-}
-
-/*===============Example 1===================*/
+/*=============== Example ===================*/
 main {
     padding: 10px;
 }
 
-#wrap-example-1 {
+#wrap-example {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     max-height: calc(100vh - 20px);
 }
 
-#wrap-example-1 > * {
+#wrap-example .up360 {
+    flex: 1 1 auto;
     max-width: 920px;
-    width: 100%;
 }
