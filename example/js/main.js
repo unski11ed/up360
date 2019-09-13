@@ -4,6 +4,8 @@ import './../../lib/sass/index.scss';
 var targetElement = document.querySelector('#wrap-example');
 
 var up360Interface = up360(targetElement, {
+    autoPlay: true,
+
     backgroundColor: '#34261b',
     primaryUiColor: '#555',
     secondaryUiColor: '#fff',
