@@ -1,10 +1,10 @@
-import up360 from './../../dist/up360.esm';
-import './../../dist/up360.css';
+import up360 from './../../lib/js/main';
+import './../../lib/sass/index.scss';
 
 var targetElement = document.querySelector('#wrap-example');
 
 var up360Interface = up360(targetElement, {
-    fillWindow: true,
+    autoPlay: true,
 
     backgroundColor: '#34261b',
     primaryUiColor: '#555',
